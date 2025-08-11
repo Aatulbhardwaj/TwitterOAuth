@@ -4,47 +4,49 @@
     <meta charset="UTF-8" />
     <title>Twitter Redirect</title>
     <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      background: #1da1f2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        text-align: center;
+      }
+      button {
+        padding: 12px 20px;
+        font-size: 16px;
+        background: #1da1f2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
     </style>
-    <body>
+  </head>
+  <body>
     <h2>Logging you in...</h2>
     <p>If it doesn't happen automatically, tap the button below.</p>
     <button id="openApp" style="display:none;">Open App</button>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const oauth_token = params.get('oauth_token');
-        const oauth_verifier = params.get('oauth_verifier');
-          
-          const redirectUrl = `my-scheme://my-host?oauth_token=${oauth_token}&oauth_verifier=${oauth_verifier}`;
-          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-          if (!isIOS) {
-          // Android or others → auto redirect
-            window.location.href = redirectUrl;
-          } else {
-          // iOS → show button to tap
-            document.body.innerHTML = `
-            <h2>Login successful</h2>
-            <p>Tap below to return to the app:</p>
-            <button id="openApp">Open App</button>
-            `;
-            document.getElementById('openApp').onclick = () => {
-            window.location.href = redirectUrl;
-          };
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const oauth_token = params.get('oauth_token');
+      const oauth_verifier = params.get('oauth_verifier');
+
+      const redirectUrl = `my-scheme://my-host?oauth_token=${oauth_token}&oauth_verifier=${oauth_verifier}`;
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+      if (!isIOS) {
+        // Android or others → auto redirect
+        window.location.href = redirectUrl;
+      } else {
+        // iOS → show button to tap
+        document.body.innerHTML = `
+          <h2>Login successful</h2>
+          <p>Tap below to return to the app:</p>
+          <button id="openApp">Open App</button>
+        `;
+        document.getElementById('openApp').onclick = () => {
+          window.location.href = redirectUrl;
+        };
+      }
     </script>
-  </head>
-</body>
+  </body>
 </html>
