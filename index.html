@@ -8,15 +8,24 @@
         const params = new URLSearchParams(window.location.search);
         const oauth_token = params.get('oauth_token');
         const oauth_verifier = params.get('oauth_verifier');
-
-        if (oauth_token && oauth_verifier) {
           
           const redirectUrl = `my-scheme://my-host?oauth_token=${oauth_token}&oauth_verifier=${oauth_verifier}`;
-          window.location.href = redirectUrl;
-        } else {
-          document.body.innerText = 'Missing oauth_token or oauth_verifier.';
-        }
-      };
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+          if (!isIOS) {
+          // Android or others → auto redirect
+            window.location.href = deepLink;
+          } else {
+          // iOS → show button to tap
+            document.body.innerHTML = `
+            <h2>Login successful</h2>
+            <p>Tap below to return to the app:</p>
+            <button id="openApp">Open App</button>
+            `;
+            document.getElementById('openApp').onclick = () => {
+            window.location.href = deepLink;
+          };
+        }     
     </script>
   </head>
   <body>
