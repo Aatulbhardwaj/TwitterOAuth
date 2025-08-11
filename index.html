@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Twitter Redirect</title>
     <script>
-      window.onload = function () {
         const params = new URLSearchParams(window.location.search);
         const oauth_token = params.get('oauth_token');
         const oauth_verifier = params.get('oauth_verifier');
@@ -14,7 +13,7 @@
 
           if (!isIOS) {
           // Android or others → auto redirect
-            window.location.href = deepLink;
+            window.location.href = redirectUrl;
           } else {
           // iOS → show button to tap
             document.body.innerHTML = `
@@ -23,9 +22,8 @@
             <button id="openApp">Open App</button>
             `;
             document.getElementById('openApp').onclick = () => {
-            window.location.href = deepLink;
+            window.location.href = redirectUrl;
           };
-        }     
     </script>
   </head>
   <body>
