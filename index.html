@@ -9,15 +9,11 @@
         const oauth_token = params.get('oauth_token');
         const oauth_verifier = params.get('oauth_verifier');
 
-        if (oauth_token && oauth_verifier) {
-      const redirectUrl = `my-scheme://my-host?oauth_token=${oauth_token}&oauth_verifier=${oauth_verifier}`;
-      setTimeout(() => {
-        window.open(redirectUrl, '_self');
-      }, 100);
-    } else {
-      document.body.innerText = 'Missing oauth_token or oauth_verifier.';
-    }
-      };
+        document.getElementById('continue').addEventListener('click', () => {
+      if (oauth_token && oauth_verifier) {
+        window.location.href = `my-scheme://my-host?oauth_token=${oauth_token}&oauth_verifier=${oauth_verifier}`;
+      }
+    });
     </script>
   </head>
   <body>
