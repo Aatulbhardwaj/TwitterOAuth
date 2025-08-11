@@ -3,6 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <title>Twitter Redirect</title>
+    <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #1da1f2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    </style>
+    <body>
+    <h2>Logging you in...</h2>
+    <p>If it doesn't happen automatically, tap the button below.</p>
+    <button id="openApp" style="display:none;">Open App</button>
     <script>
         const params = new URLSearchParams(window.location.search);
         const oauth_token = params.get('oauth_token');
@@ -26,7 +46,5 @@
           };
     </script>
   </head>
-  <body>
-    <p>Redirecting to app...</p>
-  </body>
+</body>
 </html>
